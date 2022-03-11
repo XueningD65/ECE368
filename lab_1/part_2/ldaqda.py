@@ -144,7 +144,7 @@ def discrimAnalysis(x, y):
     plt.xlabel('Height')
     plt.ylabel('Weight')
     plt.title('Decision Boundary with Contours in 2D - QDA')
-    #plt.savefig("qda.pdf")
+    plt.savefig("qda.pdf")
     #plt.show()
 
     return (mu_male,mu_female,cov,cov_male,cov_female)
@@ -197,12 +197,12 @@ def misRate(mu_male,mu_female,cov,cov_male,cov_female,x,y):
     for idx, x_val in enumerate(x):
         QDA_male = - np.log(np.linalg.det(cov_male)) - \
                    np.dot(x_val, np.dot(cov_male_inv, x_val.T)) + \
-                   2 * np.dot(np.transpose(mu_male), np.dot(cov_male_inv, x_val.T)) - \
+                   2 * np.dot(np.transpose(mu_male), np.dot(cov_male_inv.T, x_val.T)) - \
                    np.dot(np.transpose(mu_male), np.dot(cov_male_inv, mu_male))
 
         QDA_female = - np.log(np.linalg.det(cov_female)) - \
                      np.dot(x_val, np.dot(cov_female_inv, x_val.T)) + \
-                     2 * np.dot(np.transpose(mu_female), np.dot(cov_female_inv, x_val.T)) - \
+                     2 * np.dot(np.transpose(mu_female), np.dot(cov_female_inv.T, x_val.T)) - \
                      np.dot(np.transpose(mu_female), np.dot(cov_female_inv, mu_female))
 
         if QDA_male < QDA_female and y[idx] == 1:
